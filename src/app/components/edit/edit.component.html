@@ -1,0 +1,79 @@
+<div class="container">
+    <hr>
+    <div class="card">
+        <div class="card-body">
+          <form class="form-horizontal" [formGroup]="editTaskForm" novalidate>
+                <div class="form-group">
+                    <label class="col-md-4">Task Name</label>
+                    <input type="text" class="form-control" name="task" formControlName="task" #task 
+                    [(ngModel)] = "tasks.task"/>
+                </div>
+                <div *ngIf="editTaskForm.controls['task'].invalid && 
+                (editTaskForm.controls['task'].dirty || editTaskForm.controls['task'].touched)" 
+                class="alert alert-danger">
+                    <div *ngIf="editTaskForm.controls['task'].errors.required">
+                    Task Name is required.
+                    </div>
+                </div>
+              
+                <div class="form-group">
+                  <label class="col-md-4">Parent Task</label>
+                  <input type="text" class="form-control" name="parent_id"
+                   formControlName="parent_id" />
+                </div>
+               
+              <div class="form-group">
+                  <label class="control-label col-sm-2">Priority:</label>
+                  <div class="col-sm-10">   
+                        <input type="range"  min="0" max="30" class="form-control" name="priority"
+                        formControlName="priority" #priority  [(ngModel)] = "tasks.priority"/>
+                </div>
+              </div>
+             <div *ngIf="editTaskForm.controls['priority'].invalid && 
+                (editTaskForm.controls['priority'].dirty || editTaskForm.controls['priority'].touched)" 
+                class="alert alert-danger">
+                    <div *ngIf="editTaskForm.controls['priority'].errors.required">
+                    Priority is required.
+                    </div>
+                </div>
+    
+            
+              <div class="form-group">
+                    <label class="col-md-4">Start Date</label>
+                    <input type="date" class="form-control" name="start_date"  formControlName="start_date"
+                    [ngModel] ="tasks.start_date | date:'yyyy-MM-dd'" #start_date>
+                   
+                  </div>
+                  <div *ngIf="editTaskForm.controls['start_date'].invalid && 
+                  (editTaskForm.controls['start_date'].dirty || editTaskForm.controls['start_date'].touched)" 
+                  class="alert alert-danger">
+                    <div *ngIf="editTaskForm.controls['start_date'].errors.required">
+                      Start Date is required.
+                    </div>
+            </div>
+    
+    
+            <div class="form-group">
+                    <label class="col-md-4">End Date</label>
+                  <input type="date" class="form-control" name="end_date"  formControlName="end_date"
+                     [ngModel] ="tasks.end_date | date:'yyyy-MM-dd'" #end_date>
+                  </div>
+                  <div *ngIf="editTaskForm.controls['end_date'].invalid && 
+                  (editTaskForm.controls['end_date'].dirty || editTaskForm.controls['end_date'].touched)" 
+                  class="alert alert-danger">
+                    <div *ngIf="editTaskForm.controls['end_date'].errors.required">
+                      End Date is required.
+                    </div>
+            </div>
+    
+    
+              <div class="form-group">
+                  <button (click)="updateTask(task.value,priority.value,start_date.value,end_date.value)" 
+                    [disabled]="editTaskForm.pristine || editTaskForm.invalid" 
+                    class="btn btn-primary">Update Task</button> &nbsp; 
+                    <a [routerLink]="['/index']" class="btn btn-primary">Cancel</a>
+              </div>
+          </form>
+          </div>
+    </div>
+    </div>

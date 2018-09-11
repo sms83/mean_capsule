@@ -1,0 +1,75 @@
+ <div class="container container-fluid" style ="font-size:11px;">
+<div class="jumbotron jumbotronCallCenter">
+<div class="row" style="height:20%">
+    <div class="col-md-6" role="form">
+        <div class="form-group">
+            <label for="task"><b>Task:</b></label>
+            <div class="input-group">
+                <input type="text" class="form-control" [(ngModel)]="q1" >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="input-group-btn">
+            <label for="priority_from"><b>Priority From:</b></label>
+            <div class="input-group">
+                 <input type="text" class="form-control" [(ngModel)]="q2" ></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="input-group-btn">
+            <label for="priority_to"><b>Priority To:</b></label>
+            <div class="input-group">
+            <input type="text" class="form-control" [(ngModel)]="q3" ></div></div>
+            </div>
+    </div>
+
+    <div class="col-md-6" role="form">
+        <div class="form-group">
+            <label for="parent_task"><b>Parent Task:</b></label>
+            <div class="input-group">
+                    <input type="text" class="form-control" [(ngModel)]="q4" ></div>
+        </div>
+        <div class="form-group">
+                <label for="start_date"><b>Start Date:</b></label>
+                <div class="input-group-btn">
+                        <input type="date" class="form-control" [(ngModel)]="q5" >
+        </div>
+        </div>
+        <div class="form-group">
+                <label for="start_date"><b>End Date:</b></label>
+                <div class="input-group-btn">
+                        <input type="date" class="form-control" [(ngModel)]="q6" >
+        </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<table class="table table-hover" style ="font-size:12px;">
+    <thead>
+    <tr>
+        <td><b>Task Name</b></td>
+        <td><b>Parent Task</b></td>
+        <td><b>Priority</b></td>
+        <td><b>Start</b></td>
+        <td><b>End</b></td>
+        <td colspan="2"></td>
+    </tr>
+    </thead>
+    <tbody>
+       <tr *ngFor="let TR of tasksResult | filter : q1: q2: q3: q4: q5: q6">
+            <td>{{ TR.task }}</td>
+            <td>{{ TR.parent_id | findtaskname : tasksResult }}</td>
+            <td>{{ TR.priority }}</td>
+            <td>{{TR.start_date | date:"dd-MMM-yyyy"}}</td>
+            <td>{{TR.end_date | date:"dd-MMM-yyyy"}}</td>
+            <div *ngIf="TR.finished===false">
+            <td><a [routerLink]="['/edit', TR._id]" class="btn btn-primary btn-xs">Edit</a></td>
+            <td><button (click)="finishingTask(TR._id)"  class="btn btn-danger btn-xs">End Task</button></td>
+                </div>
+        </tr>
+    </tbody>
+  </table>
